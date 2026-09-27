@@ -14,6 +14,9 @@
       },
       "user": {
         "data": { "url": "URL de CC Tools" },
+        "data_description": {
+          "url": "Dirección expuesta por CC Tools, incluyendo el protocolo y el puerto."
+        },
         "description": "Introduce la URL expuesta por el addon CC Tools.",
         "title": "Creality Cloud"
       }

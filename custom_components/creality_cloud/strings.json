@@ -16,6 +16,9 @@
         "data": {
           "url": "CC Tools URL"
         },
+        "data_description": {
+          "url": "Address exposed by CC Tools, including the protocol and port."
+        },
         "description": "Enter the URL exposed by the CC Tools add-on.",
         "title": "Creality Cloud"
       }

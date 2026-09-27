@@ -47,7 +47,6 @@ class CrealityCloudConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({vol.Required(CONF_URL): str}),
-            errors={"base": "cannot_connect"},
         )
 
     async def async_step_confirm(
@@ -62,10 +61,19 @@ class CrealityCloudConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def _async_detect_addon(self) -> tuple[str, dict[str, Any]] | None:
-        results = await asyncio.gather(
-            *(self._probe(candidate) for candidate in DEFAULT_ADDON_URLS),
-        )
-        return next((result for result in results if result), None)
+        tasks = [
+            asyncio.create_task(self._probe(candidate))
+            for candidate in DEFAULT_ADDON_URLS
+        ]
+        try:
+            for completed in asyncio.as_completed(tasks):
+                if result := await completed:
+                    return result
+            return None
+        finally:
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
 
     async def _probe(self, url: str) -> tuple[str, dict[str, Any]] | None:
         try:
