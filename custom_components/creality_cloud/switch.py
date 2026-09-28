@@ -13,6 +13,7 @@ from .entity import CrealityCloudEntity
 
 TASK_ICONS = {
     "print": "mdi:printer-3d",
+    "collections": "mdi:bookmark-multiple",
 }
 
 
@@ -35,6 +36,14 @@ class CrealityCloudTaskSwitch(CrealityCloudEntity, SwitchEntity):
             key=task_id,
             translation_key=f"task_{task_id}",
             icon=TASK_ICONS[task_id],
+        )
+
+    @property
+    def available(self) -> bool:
+        """Keep collections unavailable until the add-on supports it."""
+        return super().available and (
+            self.task_id != "collections"
+            or "collections" in self.coordinator.data.get("tasks", {})
         )
 
     @property

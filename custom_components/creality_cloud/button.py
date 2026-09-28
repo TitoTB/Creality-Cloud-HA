@@ -9,7 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CrealityCloudConfigEntry
 from .api import CrealityCloudApiError
-from .entity import CrealityCloudPrinterEntity
+from .entity import CrealityCloudEntity, CrealityCloudPrinterEntity
 
 
 async def async_setup_entry(
@@ -17,7 +17,8 @@ async def async_setup_entry(
     entry: CrealityCloudConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up printer buttons."""
+    """Set up collection and printer buttons."""
+    async_add_entities([CrealityCloudCollectionButton(entry)])
     known_printers: set[str] = set()
 
     @callback
@@ -38,6 +39,28 @@ async def async_setup_entry(
     entry.async_on_unload(
         entry.runtime_data.coordinator.async_add_listener(add_printers)
     )
+
+
+class CrealityCloudCollectionButton(CrealityCloudEntity, ButtonEntity):
+    """Add a model to the collection through CC Tools."""
+
+    _attr_translation_key = "run_collections"
+    _attr_icon = "mdi:bookmark-plus"
+
+    def __init__(self, entry: CrealityCloudConfigEntry) -> None:
+        super().__init__(entry, "run_collections")
+
+    @property
+    def available(self) -> bool:
+        """Require collection support in the connected add-on."""
+        return super().available and "collections" in self.coordinator.data.get("tasks", {})
+
+    async def async_press(self) -> None:
+        """Request one collection run; CC Tools verifies the reward."""
+        try:
+            await self.coordinator.async_run_task("collections")
+        except CrealityCloudApiError as err:
+            raise HomeAssistantError(str(err)) from err
 
 
 class CrealityCloudPrinterButton(CrealityCloudPrinterEntity, ButtonEntity):

@@ -26,9 +26,13 @@
   },
   "entity": {
     "button": {
+      "run_collections": { "name": "Add to collection" },
       "run_printer": { "name": "Send next print" }
     },
     "sensor": {
+      "collections_daily_count": { "name": "Credited collections today" },
+      "collections_last_run": { "name": "Last collection run" },
+      "collections_next_run": { "name": "Next collection run" },
       "boosts_available": { "name": "Available boosts" },
       "lottery_tickets": { "name": "Lottery tickets" },
       "points_today": { "name": "Points earned today" },
@@ -46,6 +50,7 @@
       }
     },
     "switch": {
+      "task_collections": { "name": "Schedule collections" },
       "task_print": { "name": "Prints" }
     }
   }

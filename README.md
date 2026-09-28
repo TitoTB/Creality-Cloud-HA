@@ -31,7 +31,16 @@ The integration provides:
 - Lottery tickets and available boosts.
 - Daily print counter and last/next print execution.
 - A switch for enabling or disabling scheduled prints.
+- A collection run button, a scheduling switch, and sensors for credited collections today, last run and next run.
 - Printer status, daily count, last/next print, last G-code and a button to send the next configured print.
+
+## Collections
+
+Collection entities require CC Tools 1.0.11 or newer with the `collections` API ([companion pull request](https://github.com/TitoTB/CC-Tools-HA/pull/1)). They remain unavailable on older add-ons and become available after the add-on is updated and the next successful refresh completes.
+
+The collection switch controls scheduling; enabling it requires **Discover designs** to be enabled in CC Tools. The button requests one manual run. CC Tools selects the model, saves it to Default Collections and verifies the daily reward. Scheduling windows remain configured in CC Tools.
+
+Collection results use the existing `creality_cloud_task_completed` and `creality_cloud_task_failed` events with `task: collections`. A skipped run does not emit a completion event.
 
 ## Events
 

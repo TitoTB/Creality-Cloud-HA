@@ -17,6 +17,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CrealityCloudConfigEntry
+from .const import TASKS
 from .entity import CrealityCloudEntity, CrealityCloudPrinterEntity
 
 
@@ -61,10 +62,9 @@ ACCOUNT_SENSORS = (
     ),
 )
 
-TASK_IDS = ("print",)
 TASK_SENSORS = tuple(
     description
-    for task_id in TASK_IDS
+    for task_id in TASKS
     for description in (
         CrealityCloudSensorDescription(
             key=f"{task_id}_daily_count",
@@ -148,6 +148,14 @@ class CrealityCloudSensor(CrealityCloudEntity, SensorEntity):
     def __init__(self, entry, description: CrealityCloudSensorDescription) -> None:
         super().__init__(entry, description.key)
         self.entity_description = description
+
+    @property
+    def available(self) -> bool:
+        """Do not report collection values when the add-on lacks support."""
+        return super().available and (
+            not self.entity_description.key.startswith("collections_")
+            or "collections" in self.coordinator.data.get("tasks", {})
+        )
 
     @property
     def native_value(self):
