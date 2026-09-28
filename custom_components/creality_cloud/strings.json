@@ -25,18 +25,12 @@
     }
   },
   "entity": {
-    "button": {
-      "run_printer": { "name": "Send next print" }
-    },
     "sensor": {
       "boosts_available": { "name": "Available boosts" },
       "latest_order": { "name": "Latest order" },
       "lottery_tickets": { "name": "Lottery tickets" },
       "points_today": { "name": "Points earned today" },
       "points_total": { "name": "Total points" },
-      "print_daily_count": { "name": "Prints today" },
-      "print_last_run": { "name": "Last print" },
-      "print_next_run": { "name": "Next print" },
       "printer_daily_count": { "name": "Prints today" },
       "printer_last_gcode": { "name": "Last G-code" },
       "printer_last_run": { "name": "Last print" },
@@ -47,7 +41,7 @@
       }
     },
     "switch": {
-      "task_print": { "name": "Prints" }
+      "printer_scheduled_prints": { "name": "Scheduled prints" }
     }
   }
 }

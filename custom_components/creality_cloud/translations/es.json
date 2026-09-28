@@ -23,18 +23,12 @@
     }
   },
   "entity": {
-    "button": {
-      "run_printer": { "name": "Enviar siguiente impresión" }
-    },
     "sensor": {
       "boosts_available": { "name": "Impulsos disponibles" },
       "latest_order": { "name": "Último pedido" },
       "lottery_tickets": { "name": "Boletos de lotería" },
       "points_today": { "name": "Puntos obtenidos hoy" },
       "points_total": { "name": "Puntos totales" },
-      "print_daily_count": { "name": "Impresiones de hoy" },
-      "print_last_run": { "name": "Última impresión" },
-      "print_next_run": { "name": "Próxima impresión" },
       "printer_daily_count": { "name": "Impresiones de hoy" },
       "printer_last_gcode": { "name": "Último G-code" },
       "printer_last_run": { "name": "Última impresión" },
@@ -42,7 +36,7 @@
       "printer_status": { "name": "Estado", "state": { "disabled": "Desactivada", "ready": "Preparada", "unavailable": "No disponible" } }
     },
     "switch": {
-      "task_print": { "name": "Impresiones" }
+      "printer_scheduled_prints": { "name": "Impresiones programadas" }
     }
   }
 }

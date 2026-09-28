@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Moves print sensors and the scheduled-prints switch to each printer device.
+- Renames the printer switch to Scheduled prints.
+- Removes the manual Send next print button.
+
 ## 1.0.1
 
 - Adds a latest order sensor with the current status and useful order attributes.

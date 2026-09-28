@@ -30,9 +30,8 @@ The integration provides:
 - Total points and points earned today.
 - Lottery tickets and available boosts.
 - Latest shop order status and details.
-- Daily print counter and last/next print execution.
-- A switch for enabling or disabling scheduled prints.
-- Printer status, daily count, last/next print, last G-code and a button to send the next configured print.
+- Printer status, daily count, last/next print and last G-code.
+- A scheduled-prints switch on each printer device.
 
 ## Events
 

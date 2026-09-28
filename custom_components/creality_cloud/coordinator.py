@@ -57,11 +57,6 @@ class CrealityCloudCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         await self.api.async_run_task(task_id)
         await self.async_request_refresh()
 
-    async def async_run_printer(self, printer_id: str) -> None:
-        """Run the next configured print and refresh all entities."""
-        await self.api.async_run_printer(printer_id)
-        await self.async_request_refresh()
-
     async def async_set_task_enabled(self, task_id: str, enabled: bool) -> None:
         """Set task state and refresh all entities."""
         await self.api.async_set_task_enabled(task_id, enabled)

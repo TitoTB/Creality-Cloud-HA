@@ -48,6 +48,15 @@ async def async_setup_entry(
             if entity_id:
                 entity_registry.async_remove(entity_id)
 
+    for registry_entry in er.async_entries_for_config_entry(
+        entity_registry, entry.entry_id
+    ):
+        if (
+            registry_entry.platform == DOMAIN
+            and registry_entry.entity_id.startswith("button.")
+        ):
+            entity_registry.async_remove(registry_entry.entity_id)
+
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 

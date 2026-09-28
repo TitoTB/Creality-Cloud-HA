@@ -58,10 +58,6 @@ class CrealityCloudApi:
         """Run a task immediately."""
         await self._request("POST", f"/api/integration/tasks/{task_id}/run")
 
-    async def async_run_printer(self, printer_id: str) -> None:
-        """Send the next configured G-code to a printer."""
-        await self._request("POST", f"/api/integration/printers/{printer_id}/run")
-
     async def _request(
         self,
         method: str,
