@@ -5,7 +5,7 @@ Custom Home Assistant integration that exposes the account, rewards, scheduled t
 ## Requirements
 
 - Home Assistant 2026.3 or newer.
-- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.9 or newer, configured and signed in to Creality Cloud.
+- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.11 or newer, configured and signed in to Creality Cloud.
 - Home Assistant must be able to reach the add-on HTTP endpoint.
 
 This integration does not connect directly to Creality Cloud and does not replace CC Tools. Scheduling, favorite profiles, comments, G-code selection and other advanced settings remain in CC Tools.
@@ -29,6 +29,7 @@ The integration provides:
 
 - Total points and points earned today.
 - Lottery tickets and available boosts.
+- Latest shop order status and details.
 - Daily print counter and last/next print execution.
 - A switch for enabling or disabling scheduled prints.
 - Printer status, daily count, last/next print, last G-code and a button to send the next configured print.
