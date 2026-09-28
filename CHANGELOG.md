@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.0.2
 
 - Moves print sensors and the scheduled-prints switch to each printer device.
 - Renames the printer switch to Scheduled prints.
