@@ -30,6 +30,7 @@
     },
     "sensor": {
       "boosts_available": { "name": "Available boosts" },
+      "latest_order": { "name": "Latest order" },
       "lottery_tickets": { "name": "Lottery tickets" },
       "points_today": { "name": "Points earned today" },
       "points_total": { "name": "Total points" },
