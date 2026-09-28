@@ -12,12 +12,7 @@ from .const import TASKS
 from .entity import CrealityCloudEntity
 
 TASK_ICONS = {
-    "checkin": "mdi:calendar-check",
     "print": "mdi:printer-3d",
-    "downloads": "mdi:download",
-    "comments": "mdi:comment-text",
-    "boosts": "mdi:rocket-launch",
-    "likes": "mdi:heart",
 }
 
 

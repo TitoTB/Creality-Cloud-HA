@@ -29,11 +29,8 @@ The integration provides:
 
 - Total points and points earned today.
 - Lottery tickets and available boosts.
-- Automation, browser and scheduler status.
-- Pending and shipped order counters.
-- Daily counters and last/next execution for every supported task.
-- Switches for check-in, downloads, prints, comments, boosts and likes.
-- Buttons to run tasks immediately.
+- Daily print counter and last/next print execution.
+- A switch for enabling or disabling scheduled prints.
 - Printer status, daily count, last/next print, last G-code and a button to send the next configured print.
 
 ## Events

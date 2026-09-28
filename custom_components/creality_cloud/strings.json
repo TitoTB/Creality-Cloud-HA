@@ -26,41 +26,11 @@
   },
   "entity": {
     "button": {
-      "run_boosts": { "name": "Boost a design" },
-      "run_checkin": { "name": "Check in now" },
-      "run_comments": { "name": "Post a comment" },
-      "run_downloads": { "name": "Discover designs" },
-      "run_likes": { "name": "Send a like" },
       "run_printer": { "name": "Send next print" }
     },
     "sensor": {
-      "automation_status": {
-        "name": "Automation status",
-        "state": { "active": "Active", "degraded": "Degraded", "paused": "Paused" }
-      },
       "boosts_available": { "name": "Available boosts" },
-      "browser_status": {
-        "name": "Browser status",
-        "state": { "active": "Active", "idle": "Idle" }
-      },
-      "boosts_daily_count": { "name": "Boosts today" },
-      "boosts_last_run": { "name": "Last boost" },
-      "boosts_next_run": { "name": "Next boost" },
-      "checkin_daily_count": { "name": "Check-ins today" },
-      "checkin_last_run": { "name": "Last check-in" },
-      "checkin_next_run": { "name": "Next check-in" },
-      "comments_daily_count": { "name": "Comments today" },
-      "comments_last_run": { "name": "Last comment" },
-      "comments_next_run": { "name": "Next comment" },
-      "downloads_daily_count": { "name": "Downloads today" },
-      "downloads_last_run": { "name": "Last download" },
-      "downloads_next_run": { "name": "Next download" },
-      "likes_daily_count": { "name": "Likes today" },
-      "likes_last_run": { "name": "Last like" },
-      "likes_next_run": { "name": "Next like" },
       "lottery_tickets": { "name": "Lottery tickets" },
-      "orders_pending": { "name": "Pending orders" },
-      "orders_shipped": { "name": "Shipped orders" },
       "points_today": { "name": "Points earned today" },
       "points_total": { "name": "Total points" },
       "print_daily_count": { "name": "Prints today" },
@@ -73,18 +43,9 @@
       "printer_status": {
         "name": "Status",
         "state": { "disabled": "Disabled", "ready": "Ready", "unavailable": "Unavailable" }
-      },
-      "scheduler_status": {
-        "name": "Scheduler status",
-        "state": { "idle": "Idle", "running": "Running" }
       }
     },
     "switch": {
-      "task_boosts": { "name": "Boost designs" },
-      "task_checkin": { "name": "Daily check-in" },
-      "task_comments": { "name": "Comments" },
-      "task_downloads": { "name": "Discover designs" },
-      "task_likes": { "name": "Likes" },
       "task_print": { "name": "Prints" }
     }
   }

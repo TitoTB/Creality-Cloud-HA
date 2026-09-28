@@ -59,58 +59,9 @@ ACCOUNT_SENSORS = (
         state_class=SensorStateClass.TOTAL,
         value_fn=lambda data: data.get("rewards", {}).get("boostsAvailable"),
     ),
-    CrealityCloudSensorDescription(
-        key="automation_status",
-        translation_key="automation_status",
-        icon="mdi:robot",
-        device_class=SensorDeviceClass.ENUM,
-        options=["active", "degraded", "paused"],
-        value_fn=lambda data: data.get("health", {}).get("state"),
-        attributes_fn=lambda data: data.get("health", {}),
-    ),
-    CrealityCloudSensorDescription(
-        key="browser_status",
-        translation_key="browser_status",
-        icon="mdi:web",
-        device_class=SensorDeviceClass.ENUM,
-        options=["active", "idle"],
-        value_fn=lambda data: (
-            "active" if data.get("scheduler", {}).get("browserActive") else "idle"
-        ),
-        attributes_fn=lambda data: {
-            "mode": data.get("scheduler", {}).get("browserMode")
-        },
-    ),
-    CrealityCloudSensorDescription(
-        key="scheduler_status",
-        translation_key="scheduler_status",
-        icon="mdi:calendar-clock",
-        device_class=SensorDeviceClass.ENUM,
-        options=["running", "idle"],
-        value_fn=lambda data: (
-            "running" if data.get("scheduler", {}).get("running") else "idle"
-        ),
-        attributes_fn=lambda data: {
-            "running_task": data.get("scheduler", {}).get("runningTask")
-        },
-    ),
-    CrealityCloudSensorDescription(
-        key="orders_pending",
-        translation_key="orders_pending",
-        icon="mdi:package-variant-clock",
-        state_class=SensorStateClass.TOTAL,
-        value_fn=lambda data: data.get("orders", {}).get("pending"),
-    ),
-    CrealityCloudSensorDescription(
-        key="orders_shipped",
-        translation_key="orders_shipped",
-        icon="mdi:truck-check",
-        state_class=SensorStateClass.TOTAL,
-        value_fn=lambda data: data.get("orders", {}).get("shipped"),
-    ),
 )
 
-TASK_IDS = ("checkin", "print", "downloads", "comments", "boosts", "likes")
+TASK_IDS = ("print",)
 TASK_SENSORS = tuple(
     description
     for task_id in TASK_IDS

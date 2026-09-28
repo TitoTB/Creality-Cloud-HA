@@ -17,5 +17,25 @@ DEFAULT_ADDON_URLS = (
 
 EVENT_PREFIX = "creality_cloud"
 
-TASKS = ("checkin", "print", "downloads", "comments", "boosts", "likes")
-RUNNABLE_TASKS = ("checkin", "downloads", "comments", "boosts", "likes")
+TASKS = ("print",)
+
+REMOVED_ENTITY_UNIQUE_ID_SUFFIXES = (
+    "automation_status",
+    "browser_status",
+    "scheduler_status",
+    "orders_pending",
+    "orders_shipped",
+    *(
+        f"{task_id}_{suffix}"
+        for task_id in ("checkin", "downloads", "comments", "boosts", "likes")
+        for suffix in ("daily_count", "last_run", "next_run")
+    ),
+    *(
+        f"task_{task_id}"
+        for task_id in ("checkin", "downloads", "comments", "boosts", "likes")
+    ),
+    *(
+        f"run_{task_id}"
+        for task_id in ("checkin", "downloads", "comments", "boosts", "likes")
+    ),
+)

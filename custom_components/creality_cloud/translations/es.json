@@ -24,35 +24,11 @@
   },
   "entity": {
     "button": {
-      "run_boosts": { "name": "Impulsar un diseño" },
-      "run_checkin": { "name": "Hacer check-in" },
-      "run_comments": { "name": "Dejar un comentario" },
-      "run_downloads": { "name": "Descubrir diseños" },
-      "run_likes": { "name": "Enviar un like" },
       "run_printer": { "name": "Enviar siguiente impresión" }
     },
     "sensor": {
-      "automation_status": { "name": "Estado de las automatizaciones", "state": { "active": "Activo", "degraded": "Degradado", "paused": "Pausado" } },
       "boosts_available": { "name": "Impulsos disponibles" },
-      "browser_status": { "name": "Estado del navegador", "state": { "active": "Activo", "idle": "Inactivo" } },
-      "boosts_daily_count": { "name": "Impulsos de hoy" },
-      "boosts_last_run": { "name": "Último impulso" },
-      "boosts_next_run": { "name": "Próximo impulso" },
-      "checkin_daily_count": { "name": "Check-ins de hoy" },
-      "checkin_last_run": { "name": "Último check-in" },
-      "checkin_next_run": { "name": "Próximo check-in" },
-      "comments_daily_count": { "name": "Comentarios de hoy" },
-      "comments_last_run": { "name": "Último comentario" },
-      "comments_next_run": { "name": "Próximo comentario" },
-      "downloads_daily_count": { "name": "Descargas de hoy" },
-      "downloads_last_run": { "name": "Última descarga" },
-      "downloads_next_run": { "name": "Próxima descarga" },
-      "likes_daily_count": { "name": "Likes de hoy" },
-      "likes_last_run": { "name": "Último like" },
-      "likes_next_run": { "name": "Próximo like" },
       "lottery_tickets": { "name": "Boletos de lotería" },
-      "orders_pending": { "name": "Pedidos pendientes" },
-      "orders_shipped": { "name": "Pedidos enviados" },
       "points_today": { "name": "Puntos obtenidos hoy" },
       "points_total": { "name": "Puntos totales" },
       "print_daily_count": { "name": "Impresiones de hoy" },
@@ -62,15 +38,9 @@
       "printer_last_gcode": { "name": "Último G-code" },
       "printer_last_run": { "name": "Última impresión" },
       "printer_next_run": { "name": "Próxima impresión" },
-      "printer_status": { "name": "Estado", "state": { "disabled": "Desactivada", "ready": "Preparada", "unavailable": "No disponible" } },
-      "scheduler_status": { "name": "Estado del planificador", "state": { "idle": "Inactivo", "running": "Ejecutando" } }
+      "printer_status": { "name": "Estado", "state": { "disabled": "Desactivada", "ready": "Preparada", "unavailable": "No disponible" } }
     },
     "switch": {
-      "task_boosts": { "name": "Impulsar diseños" },
-      "task_checkin": { "name": "Check-in diario" },
-      "task_comments": { "name": "Comentarios" },
-      "task_downloads": { "name": "Descubrir diseños" },
-      "task_likes": { "name": "Likes" },
       "task_print": { "name": "Impresiones" }
     }
   }

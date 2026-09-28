@@ -6,10 +6,11 @@ from dataclasses import dataclass
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import CrealityCloudApi
-from .const import CONF_URL, PLATFORMS
+from .const import CONF_URL, DOMAIN, PLATFORMS, REMOVED_ENTITY_UNIQUE_ID_SUFFIXES
 from .coordinator import CrealityCloudCoordinator
 
 
@@ -38,6 +39,14 @@ async def async_setup_entry(
     )
     if entry.title != account_name:
         hass.config_entries.async_update_entry(entry, title=account_name)
+
+    entity_registry = er.async_get(hass)
+    for suffix in REMOVED_ENTITY_UNIQUE_ID_SUFFIXES:
+        unique_id = f"{entry.entry_id}_{suffix}"
+        for platform in ("button", "sensor", "switch"):
+            entity_id = entity_registry.async_get_entity_id(platform, DOMAIN, unique_id)
+            if entity_id:
+                entity_registry.async_remove(entity_id)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
