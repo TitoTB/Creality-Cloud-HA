@@ -17,7 +17,7 @@ DEFAULT_ADDON_URLS = (
 
 EVENT_PREFIX = "creality_cloud"
 
-TASKS = ("print", "collections")
+TASKS = ("collections",)
 
 REMOVED_ENTITY_UNIQUE_ID_SUFFIXES = (
     "automation_status",
@@ -25,6 +25,10 @@ REMOVED_ENTITY_UNIQUE_ID_SUFFIXES = (
     "scheduler_status",
     "orders_pending",
     "orders_shipped",
+    "print_daily_count",
+    "print_last_run",
+    "print_next_run",
+    "task_print",
     *(
         f"{task_id}_{suffix}"
         for task_id in ("checkin", "downloads", "comments", "boosts", "likes")

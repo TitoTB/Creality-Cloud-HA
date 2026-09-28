@@ -60,6 +60,15 @@ ACCOUNT_SENSORS = (
         state_class=SensorStateClass.TOTAL,
         value_fn=lambda data: data.get("rewards", {}).get("boostsAvailable"),
     ),
+    CrealityCloudSensorDescription(
+        key="latest_order",
+        translation_key="latest_order",
+        icon="mdi:package-variant-closed",
+        value_fn=lambda data: (
+            data.get("orders", {}).get("latest") or {}
+        ).get("status"),
+        attributes_fn=lambda data: latest_order_attributes(data),
+    ),
 )
 
 TASK_SENSORS = tuple(
@@ -113,8 +122,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up account and dynamically discovered printer sensors."""
     async_add_entities(
-        CrealityCloudSensor(entry, description)
-        for description in (*ACCOUNT_SENSORS, *TASK_SENSORS)
+        CrealityCloudSensor(entry, description) for description in (*ACCOUNT_SENSORS, *TASK_SENSORS)
     )
     known_printers: set[str] = set()
 
@@ -223,3 +231,22 @@ def parse_datetime(value: Any) -> datetime | None:
         return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     except ValueError:
         return None
+
+
+def latest_order_attributes(data: dict[str, Any]) -> dict[str, Any]:
+    """Return useful details about the most recently created shop order."""
+    order = data.get("orders", {}).get("latest")
+    if not isinstance(order, dict):
+        return {}
+    return {
+        "order_id": order.get("id"),
+        "order_number": order.get("orderNumber"),
+        "product": order.get("title"),
+        "points": order.get("points"),
+        "quantity": order.get("quantity"),
+        "region": order.get("region"),
+        "status_kind": order.get("statusKind"),
+        "created_at": order.get("createdAt"),
+        "updated_at": order.get("updatedAt"),
+        "image_url": order.get("imageUrl"),
+    }

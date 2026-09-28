@@ -73,7 +73,8 @@ TASKS = load_logic("const.py", {"TASKS"})["TASKS"]
 BUTTON = load_logic("button.py", {"CrealityCloudCollectionButton"})["CrealityCloudCollectionButton"]
 SWITCH = load_logic("switch.py", {"TASK_ICONS", "CrealityCloudTaskSwitch"})["CrealityCloudTaskSwitch"]
 SENSORS = load_logic("sensor.py", {
-    "CrealityCloudSensorDescription", "TASK_SENSORS", "CrealityCloudSensor", "parse_datetime"
+    "CrealityCloudSensorDescription", "TASK_SENSORS", "ACCOUNT_SENSORS",
+    "CrealityCloudSensor", "parse_datetime", "latest_order_attributes"
 }, TASKS=TASKS)
 
 
@@ -144,20 +145,52 @@ class CollectionTests(unittest.IsolatedAsyncioTestCase):
         entities = [BUTTON(self.entry), SWITCH(self.entry, "collections"), *self.collection_sensors().values()]
         self.coordinator.data["tasks"] = {"print": {}}
         self.assertTrue(all(not entity.available for entity in entities))
-        self.assertTrue(SWITCH(self.entry, "print").available)
         self.coordinator.data["tasks"]["collections"] = {}
         self.assertTrue(all(entity.available for entity in entities))
         self.coordinator.last_update_success = False
         self.assertTrue(all(not entity.available for entity in entities))
 
     def test_only_collection_entities_added_and_translations_complete(self):
-        self.assertEqual(TASKS, ("print", "collections"))
+        self.assertEqual(TASKS, ("collections",))
         for filename in ("strings.json", "translations/en.json", "translations/es.json"):
             entities = json.loads((ROOT / filename).read_text(encoding="utf-8"))["entity"]
             for platform, keys in {"button": ["run_collections"], "switch": ["task_collections"],
                                    "sensor": list(self.collection_sensors())}.items():
                 for key in keys:
                     self.assertTrue(entities[platform][key]["name"])
+
+    def test_latest_order_from_main_is_preserved(self):
+        description = next(item for item in SENSORS["ACCOUNT_SENSORS"] if item.key == "latest_order")
+        data = {"orders": {"latest": {"id": "order-1", "status": "Shipped", "title": "Filament"}}}
+        self.assertEqual(description.value_fn(data), "Shipped")
+        self.assertEqual(description.attributes_fn(data)["order_id"], "order-1")
+
+    async def test_setup_keeps_collection_button_and_removes_old_printer_button(self):
+        removed = []
+        entries = [
+            SimpleNamespace(platform="creality_cloud", entity_id="button.custom_collection",
+                            unique_id="account_run_collections"),
+            SimpleNamespace(platform="creality_cloud", entity_id="button.printer",
+                            unique_id="account_printer_1_run"),
+            SimpleNamespace(platform="creality_cloud", entity_id="switch.printer",
+                            unique_id="account_printer_1_scheduled_prints"),
+        ]
+        registry = SimpleNamespace(async_remove=removed.append)
+        coordinator = SimpleNamespace(data={"account": {"name": "Test"}},
+                                      async_config_entry_first_refresh=AsyncMock())
+        hass = SimpleNamespace(config_entries=SimpleNamespace(async_forward_entry_setups=AsyncMock()))
+        entry = SimpleNamespace(entry_id="account", title="Test", data={"url": "http://cc-tools"})
+        env = load_logic("__init__.py", {"async_setup_entry"},
+                         CrealityCloudApi=lambda *args: None,
+                         CrealityCloudCoordinator=lambda *args: coordinator,
+                         CrealityCloudRuntimeData=lambda api, coordinator: SimpleNamespace(api=api, coordinator=coordinator),
+                         CONF_URL="url", DOMAIN="creality_cloud", PLATFORMS=["button", "sensor", "switch"],
+                         REMOVED_ENTITY_UNIQUE_ID_SUFFIXES=(),
+                         async_get_clientsession=lambda hass: None,
+                         er=SimpleNamespace(async_get=lambda hass: registry,
+                                            async_entries_for_config_entry=lambda *args: entries))
+        await env["async_setup_entry"](hass, entry)
+        self.assertEqual(removed, ["button.printer"])
 
 
 if __name__ == "__main__":

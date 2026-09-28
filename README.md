@@ -5,7 +5,7 @@ Custom Home Assistant integration that exposes the account, rewards, scheduled t
 ## Requirements
 
 - Home Assistant 2026.3 or newer.
-- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.9 or newer, configured and signed in to Creality Cloud.
+- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.11 or newer, configured and signed in to Creality Cloud.
 - Home Assistant must be able to reach the add-on HTTP endpoint.
 
 This integration does not connect directly to Creality Cloud and does not replace CC Tools. Scheduling, favorite profiles, comments, G-code selection and other advanced settings remain in CC Tools.
@@ -27,16 +27,16 @@ The main device uses the name of the signed-in Creality Cloud profile. Each prin
 
 The integration provides:
 
+- A collection run button, scheduling switch, daily counter and last/next collection run sensors.
 - Total points and points earned today.
 - Lottery tickets and available boosts.
-- Daily print counter and last/next print execution.
-- A switch for enabling or disabling scheduled prints.
-- A collection run button, a scheduling switch, and sensors for credited collections today, last run and next run.
-- Printer status, daily count, last/next print, last G-code and a button to send the next configured print.
+- Latest shop order status and details.
+- Printer status, daily count, last/next print and last G-code.
+- A scheduled-prints switch on each printer device.
 
 ## Collections
 
-Collection entities require CC Tools 1.0.11 or newer with the `collections` API ([companion pull request](https://github.com/TitoTB/CC-Tools-HA/pull/1)). They remain unavailable on older add-ons and become available after the add-on is updated and the next successful refresh completes.
+Collection entities require CC Tools 1.0.12 or newer with the `collections` API ([companion pull request](https://github.com/TitoTB/CC-Tools-HA/pull/1)). They remain unavailable on older add-ons and become available after the add-on is updated and the next successful refresh completes.
 
 The collection switch controls scheduling; enabling it requires **Discover designs** to be enabled in CC Tools. The button requests one manual run. CC Tools selects the model, saves it to Default Collections and verifies the daily reward. Scheduling windows remain configured in CC Tools.
 
