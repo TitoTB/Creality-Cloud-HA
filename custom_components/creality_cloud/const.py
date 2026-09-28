@@ -5,7 +5,7 @@ from datetime import timedelta
 from homeassistant.const import Platform
 
 DOMAIN = "creality_cloud"
-PLATFORMS = [Platform.SENSOR, Platform.SWITCH]
+PLATFORMS = [Platform.BUTTON, Platform.SENSOR, Platform.SWITCH]
 SCAN_INTERVAL = timedelta(seconds=30)
 
 CONF_URL = "url"
@@ -16,6 +16,8 @@ DEFAULT_ADDON_URLS = (
 )
 
 EVENT_PREFIX = "creality_cloud"
+
+TASKS = ("collections",)
 
 REMOVED_ENTITY_UNIQUE_ID_SUFFIXES = (
     "automation_status",

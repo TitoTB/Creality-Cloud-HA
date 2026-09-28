@@ -27,11 +27,20 @@ The main device uses the name of the signed-in Creality Cloud profile. Each prin
 
 The integration provides:
 
+- A collection run button, scheduling switch, daily counter and last/next collection run sensors.
 - Total points and points earned today.
 - Lottery tickets and available boosts.
 - Latest shop order status and details.
 - Printer status, daily count, last/next print and last G-code.
 - A scheduled-prints switch on each printer device.
+
+## Collections
+
+Collection entities require CC Tools 1.0.12 or newer with the `collections` API ([companion pull request](https://github.com/TitoTB/CC-Tools-HA/pull/1)). They remain unavailable on older add-ons and become available after the add-on is updated and the next successful refresh completes.
+
+The collection switch controls scheduling; enabling it requires **Discover designs** to be enabled in CC Tools. The button requests one manual run. CC Tools selects the model, saves it to Default Collections and verifies the daily reward. Scheduling windows remain configured in CC Tools.
+
+Collection results use the existing `creality_cloud_task_completed` and `creality_cloud_task_failed` events with `task: collections`. A skipped run does not emit a completion event.
 
 ## Events
 

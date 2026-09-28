@@ -17,6 +17,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CrealityCloudConfigEntry
+from .const import TASKS
 from .entity import CrealityCloudEntity, CrealityCloudPrinterEntity
 
 
@@ -70,6 +71,47 @@ ACCOUNT_SENSORS = (
     ),
 )
 
+TASK_SENSORS = tuple(
+    description
+    for task_id in TASKS
+    for description in (
+        CrealityCloudSensorDescription(
+            key=f"{task_id}_daily_count",
+            translation_key=f"{task_id}_daily_count",
+            icon="mdi:counter",
+            state_class=SensorStateClass.TOTAL,
+            value_fn=lambda data, current=task_id: (
+                data.get("tasks", {}).get(current, {}).get("dailyCount")
+            ),
+            attributes_fn=lambda data, current=task_id: {
+                "daily_limit": data.get("tasks", {}).get(current, {}).get("dailyLimit"),
+                "last_status": data.get("tasks", {}).get(current, {}).get("lastStatus"),
+                "last_message": data.get("tasks", {})
+                .get(current, {})
+                .get("lastMessage"),
+            },
+        ),
+        CrealityCloudSensorDescription(
+            key=f"{task_id}_last_run",
+            translation_key=f"{task_id}_last_run",
+            icon="mdi:history",
+            device_class=SensorDeviceClass.TIMESTAMP,
+            value_fn=lambda data, current=task_id: parse_datetime(
+                data.get("tasks", {}).get(current, {}).get("lastRunAt")
+            ),
+        ),
+        CrealityCloudSensorDescription(
+            key=f"{task_id}_next_run",
+            translation_key=f"{task_id}_next_run",
+            icon="mdi:clock-outline",
+            device_class=SensorDeviceClass.TIMESTAMP,
+            value_fn=lambda data, current=task_id: parse_datetime(
+                data.get("tasks", {}).get(current, {}).get("nextRunAt")
+            ),
+        ),
+    )
+)
+
 PRINTER_SENSOR_KEYS = ("status", "daily_count", "last_run", "next_run", "last_gcode")
 
 
@@ -80,7 +122,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up account and dynamically discovered printer sensors."""
     async_add_entities(
-        CrealityCloudSensor(entry, description) for description in ACCOUNT_SENSORS
+        CrealityCloudSensor(entry, description) for description in (*ACCOUNT_SENSORS, *TASK_SENSORS)
     )
     known_printers: set[str] = set()
 
@@ -114,6 +156,14 @@ class CrealityCloudSensor(CrealityCloudEntity, SensorEntity):
     def __init__(self, entry, description: CrealityCloudSensorDescription) -> None:
         super().__init__(entry, description.key)
         self.entity_description = description
+
+    @property
+    def available(self) -> bool:
+        """Do not report collection values when the add-on lacks support."""
+        return super().available and (
+            not self.entity_description.key.startswith("collections_")
+            or "collections" in self.coordinator.data.get("tasks", {})
+        )
 
     @property
     def native_value(self):

@@ -23,7 +23,11 @@
     }
   },
   "entity": {
+    "button": { "run_collections": { "name": "Añadir a la colección" } },
     "sensor": {
+      "collections_daily_count": { "name": "Colecciones acreditadas hoy" },
+      "collections_last_run": { "name": "Última ejecución de colección" },
+      "collections_next_run": { "name": "Próxima ejecución de colección" },
       "boosts_available": { "name": "Impulsos disponibles" },
       "latest_order": { "name": "Último pedido" },
       "lottery_tickets": { "name": "Boletos de lotería" },
@@ -36,6 +40,7 @@
       "printer_status": { "name": "Estado", "state": { "disabled": "Desactivada", "ready": "Preparada", "unavailable": "No disponible" } }
     },
     "switch": {
+      "task_collections": { "name": "Programar colecciones" },
       "printer_scheduled_prints": { "name": "Impresiones programadas" }
     }
   }

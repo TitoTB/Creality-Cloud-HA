@@ -54,6 +54,7 @@ async def async_setup_entry(
         if (
             registry_entry.platform == DOMAIN
             and registry_entry.entity_id.startswith("button.")
+            and registry_entry.unique_id != f"{entry.entry_id}_run_collections"
         ):
             entity_registry.async_remove(registry_entry.entity_id)
 
