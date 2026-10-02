@@ -1,14 +1,8 @@
 # Creality Cloud for Home Assistant
 
-Custom Home Assistant integration that exposes the account, rewards, scheduled tasks and printers managed by the **CC Tools** add-on.
+Custom Home Assistant integration that exposes the account, rewards and printers managed by the [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA).
 
-## Requirements
-
-- Home Assistant 2026.3 or newer.
-- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.11 or newer, configured and signed in to Creality Cloud.
-- Home Assistant must be able to reach the add-on HTTP endpoint.
-
-This integration does not connect directly to Creality Cloud and does not replace CC Tools. Scheduling, favorite profiles, comments, G-code selection and other advanced settings remain in CC Tools.
+This integration does not connect directly to Creality Cloud and does not replace CC Tools. Scheduling, favorite profiles, G-code selection and other advanced settings remain in CC Tools.
 
 ## Installation with HACS
 
@@ -32,17 +26,6 @@ The integration provides:
 - Latest shop order status and details.
 - Printer status, daily count, last/next print and last G-code.
 - A scheduled-prints switch on each printer device.
-
-## Events
-
-The integration fires these events on the Home Assistant event bus:
-
-- `creality_cloud_task_completed` when a task completes.
-- `creality_cloud_task_failed` when a task fails.
-- `creality_cloud_order_shipped` when an order changes to shipped.
-- `creality_cloud_shop_goal_redeemed` when a scheduled points redemption completes.
-
-The event payload includes `type`, `task`, `status`, `source`, `message`, `occurredAt` and information about the related design, order, product or G-code when available.
 
 ## Support
 
