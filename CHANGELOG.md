@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3
+
+- Adds an opt-in Automatic restart switch for recovering a stalled CC Tools add-on.
+- Detects two consecutive missed schedule slots while respecting replanning and later successful executions.
+- Recovers scheduler operations that remain stale for 30 minutes.
+- Adds restart cooldown, daily limit and stabilization protections without creating Home Assistant notifications.
+
 ## 1.0.2
 
 - Moves print sensors and the scheduled-prints switch to each printer device.

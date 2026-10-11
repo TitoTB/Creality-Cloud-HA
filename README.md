@@ -2,6 +2,12 @@
 
 Custom Home Assistant integration that exposes the account, rewards and printers managed by the [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA).
 
+## Requirements
+
+- Home Assistant 2026.3 or newer.
+- The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.27 or newer, configured and signed in to Creality Cloud.
+- Home Assistant must be able to reach the add-on HTTP endpoint.
+
 This integration does not connect directly to Creality Cloud and does not replace CC Tools. Scheduling, favorite profiles, G-code selection and other advanced settings remain in CC Tools.
 
 ## Installation with HACS
@@ -26,6 +32,7 @@ The integration provides:
 - Latest shop order status and details.
 - Printer status, daily count, last/next print and last G-code.
 - A scheduled-prints switch on each printer device.
+- An opt-in automatic-restart switch that recovers CC Tools after two missed scheduled tasks or a scheduler that remains stale for 30 minutes.
 
 ## Support
 

@@ -8,6 +8,15 @@ DOMAIN = "creality_cloud"
 PLATFORMS = [Platform.SENSOR, Platform.SWITCH]
 SCAN_INTERVAL = timedelta(seconds=30)
 
+CONF_AUTO_RESTART = "auto_restart"
+ADDON_SLUG = "8966b8c7_cc_tools"
+MISSED_SLOT_GRACE = timedelta(minutes=5)
+STALE_RESTART_DELAY = timedelta(minutes=30)
+AUTO_RESTART_COOLDOWN = timedelta(hours=2)
+AUTO_RESTART_WINDOW = timedelta(hours=24)
+AUTO_RESTART_LIMIT = 3
+AUTO_RESTART_STABILIZATION = timedelta(minutes=3)
+
 CONF_URL = "url"
 DEFAULT_ADDON_URLS = (
     "http://8966b8c7-cc-tools:8080",

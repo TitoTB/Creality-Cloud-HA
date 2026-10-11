@@ -36,6 +36,7 @@
       "printer_status": { "name": "Estado", "state": { "disabled": "Desactivada", "ready": "Preparada", "unavailable": "No disponible" } }
     },
     "switch": {
+      "auto_restart": { "name": "Reinicio automático" },
       "printer_scheduled_prints": { "name": "Impresiones programadas" }
     }
   }

@@ -9,7 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CrealityCloudConfigEntry
 from .api import CrealityCloudApiError
-from .entity import CrealityCloudPrinterEntity
+from .entity import CrealityCloudEntity, CrealityCloudPrinterEntity
 
 
 async def async_setup_entry(
@@ -18,6 +18,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up scheduled-print switches for discovered printers."""
+    async_add_entities([CrealityCloudAutoRestartSwitch(entry)])
     known_printers: set[str] = set()
 
     @callback
@@ -39,6 +40,41 @@ async def async_setup_entry(
     entry.async_on_unload(
         entry.runtime_data.coordinator.async_add_listener(add_printers)
     )
+
+
+class CrealityCloudAutoRestartSwitch(CrealityCloudEntity, SwitchEntity):
+    """Restart CC Tools when its scheduler is demonstrably stalled."""
+
+    def __init__(self, entry: CrealityCloudConfigEntry) -> None:
+        super().__init__(entry, "auto_restart")
+        self.entity_description = SwitchEntityDescription(
+            key="auto_restart",
+            translation_key="auto_restart",
+            icon="mdi:restart-alert",
+        )
+
+    @property
+    def is_on(self) -> bool:
+        """Return whether automatic recovery is enabled."""
+        return self.coordinator.auto_restart_enabled
+
+    @property
+    def available(self) -> bool:
+        """Keep the local safety control available if CC Tools is offline."""
+        return True
+
+    @property
+    def extra_state_attributes(self):
+        """Expose recovery diagnostics without creating more entities."""
+        return self.coordinator.watchdog_attributes
+
+    async def async_turn_on(self, **kwargs) -> None:
+        """Enable automatic recovery."""
+        await self.coordinator.async_set_auto_restart_enabled(True)
+
+    async def async_turn_off(self, **kwargs) -> None:
+        """Disable automatic recovery."""
+        await self.coordinator.async_set_auto_restart_enabled(False)
 
 
 class CrealityCloudPrinterScheduleSwitch(CrealityCloudPrinterEntity, SwitchEntity):

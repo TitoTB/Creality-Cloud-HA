@@ -41,6 +41,7 @@
       }
     },
     "switch": {
+      "auto_restart": { "name": "Automatic restart" },
       "printer_scheduled_prints": { "name": "Scheduled prints" }
     }
   }
