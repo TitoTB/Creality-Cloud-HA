@@ -72,6 +72,6 @@ class CrealityCloudPrinterEntity(CrealityCloudEntity):
             manufacturer="Creality",
             model="Creality Cloud printer",
             name=str(self.printer.get("name") or self.printer_id),
-            via_device=(DOMAIN, f"account:{self.entry.entry_id}"),
+            via_device_id=self.entry.runtime_data.account_device_id,
             configuration_url=self.entry.data.get("url"),
         )

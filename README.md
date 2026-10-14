@@ -4,7 +4,7 @@ Custom Home Assistant integration that exposes the account, rewards and printers
 
 ## Requirements
 
-- Home Assistant 2026.3 or newer.
+- Home Assistant 2026.8 or newer.
 - The [CC Tools add-on](https://github.com/TitoTB/CC-Tools-HA) version 1.0.27 or newer, configured and signed in to Creality Cloud.
 - Home Assistant must be able to reach the add-on HTTP endpoint.
 

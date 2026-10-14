@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -20,6 +21,7 @@ class CrealityCloudRuntimeData:
 
     api: CrealityCloudApi
     coordinator: CrealityCloudCoordinator
+    account_device_id: str
 
 
 type CrealityCloudConfigEntry = ConfigEntry[CrealityCloudRuntimeData]
@@ -32,11 +34,22 @@ async def async_setup_entry(
     api = CrealityCloudApi(async_get_clientsession(hass), entry.data[CONF_URL])
     coordinator = CrealityCloudCoordinator(hass, entry, api)
     await coordinator.async_config_entry_first_refresh()
-    entry.runtime_data = CrealityCloudRuntimeData(api, coordinator)
 
     account_name = str(
         coordinator.data.get("account", {}).get("name") or "Creality Cloud"
     )
+    account_device = dr.async_get(hass).async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={(DOMAIN, f"account:{entry.entry_id}")},
+        manufacturer="Creality Cloud",
+        model="CC Tools account",
+        name=account_name,
+        configuration_url=entry.data.get("url"),
+    )
+    entry.runtime_data = CrealityCloudRuntimeData(
+        api, coordinator, account_device.id
+    )
+
     if entry.title != account_name:
         hass.config_entries.async_update_entry(entry, title=account_name)
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4
+
+- Migrates printer device hierarchy from the deprecated `via_device` field to `via_device_id`.
+- Registers the Creality Cloud account device before linking printer devices to it.
+- Requires Home Assistant 2026.8.0 or newer.
+
 ## 1.0.3
 
 - Adds an opt-in Automatic restart switch for recovering a stalled CC Tools add-on.
