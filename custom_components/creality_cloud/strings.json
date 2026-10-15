@@ -26,6 +26,7 @@
   },
   "entity": {
     "sensor": {
+      "session": { "name": "Session", "state": { "open": "Open", "closed": "Closed" } },
       "boosts_available": { "name": "Available boosts" },
       "latest_order": { "name": "Latest order" },
       "lottery_tickets": { "name": "Lottery tickets" },

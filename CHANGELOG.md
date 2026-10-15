@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+
+- Adds a Session sensor to the Creality Cloud account device.
+- Reports the session as Open or Closed using the state confirmed by CC Tools.
+- Exposes the last session check and closure reason as diagnostic attributes.
+
 ## 1.0.4
 
 - Migrates printer device hierarchy from the deprecated `via_device` field to `via_device_id`.

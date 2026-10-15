@@ -30,6 +30,15 @@ class CrealityCloudSensorDescription(SensorEntityDescription):
 
 ACCOUNT_SENSORS = (
     CrealityCloudSensorDescription(
+        key="session",
+        translation_key="session",
+        icon="mdi:account-key",
+        device_class=SensorDeviceClass.ENUM,
+        options=["open", "closed"],
+        value_fn=lambda data: data.get("session", {}).get("state", "closed"),
+        attributes_fn=lambda data: session_attributes(data),
+    ),
+    CrealityCloudSensorDescription(
         key="points_total",
         translation_key="points_total",
         icon="mdi:star-circle",
@@ -199,4 +208,13 @@ def latest_order_attributes(data: dict[str, Any]) -> dict[str, Any]:
         "created_at": order.get("createdAt"),
         "updated_at": order.get("updatedAt"),
         "image_url": order.get("imageUrl"),
+    }
+
+
+def session_attributes(data: dict[str, Any]) -> dict[str, Any]:
+    """Return the last session check without exposing authentication data."""
+    session = data.get("session", {})
+    return {
+        "checked_at": session.get("checkedAt") or None,
+        "reason": session.get("reason") or None,
     }

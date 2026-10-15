@@ -24,6 +24,7 @@
   },
   "entity": {
     "sensor": {
+      "session": { "name": "Sesión", "state": { "open": "Abierta", "closed": "Cerrada" } },
       "boosts_available": { "name": "Impulsos disponibles" },
       "latest_order": { "name": "Último pedido" },
       "lottery_tickets": { "name": "Boletos de lotería" },
